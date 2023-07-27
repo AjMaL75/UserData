@@ -3,6 +3,7 @@ import { Col, Container, Row } from "react-bootstrap";
 import { useFormik } from "formik";
 import  registerSchema  from "../schemas/index.js";
 import axios from "axios";
+import Users from "../component/Users.jsx";
 
 
 function Register() {
@@ -104,9 +105,13 @@ function Register() {
               </form>
               
             </div>
+            
           </Col>
+         {/* <Col xs={12} sm={12}><Users/> </Col>           */}
         </Row>
+        
       </Container>
+      <Users/>
     </div>
   );
 }

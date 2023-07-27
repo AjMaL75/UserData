@@ -1,5 +1,5 @@
 import express from "express"
-import  {register, deleteUser, getUser, updateUser } from "../logic/authentication.js"
+import  {register, deleteUser, getUser, updateUser, getOneUser } from "../logic/authentication.js"
 const router=express.Router()
 
 //for create new user
@@ -13,5 +13,8 @@ router.get("/view",getUser)
 
 //for deleting an user
 router.delete("/delete/:id",deleteUser)
+
+//for getting one user
+router.get('/user/:id',getOneUser)
 
 export default router

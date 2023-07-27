@@ -32,6 +32,26 @@ const register=async (req,res,next)=>{
         throw err
     }
 }
+const getOneUser=async(req,res,next)=>{
+    try{
+        const oneUser=await User.findOne({_id:req.params.id})
+        if(!oneUser)
+        {
+            res.status(404).json({
+                message:"this user has does not exist"
+            })
+        }
+        else{
+            res.status(200).json({
+                data:oneUser
+            })
+        }
+    }
+    catch(err)
+    {
+        throw err
+    }
+}
 const updateUser=async(req,res,next)=>{
 
         try{
@@ -43,9 +63,9 @@ const updateUser=async(req,res,next)=>{
                 })
             }
             else{
-                const {password,...others}=updateduser._doc
+                
                     res.status(200).json({
-                        data:others,
+                        data:updateduser,
                         message:"user data has updated successfully"
                     })
             }
@@ -64,6 +84,7 @@ const getUser=async(req,res,next)=>{
             next("users are does not exist")
         }
         else{
+            
             res.status(200).json(getuser)
         }
     }
@@ -93,4 +114,4 @@ const deleteUser=async(req,res,next)=>{
     }
 }
 
-export  {register,updateUser,getUser,deleteUser}
+export  {register,updateUser,getUser,deleteUser,getOneUser}

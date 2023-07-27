@@ -9,7 +9,8 @@ function Users() {
 
   const [users,setUsers]=useState([])
   const [usersCount,setUsersCount]=useState(0)
-  console.log(usersCount);
+  const [updateId,setUpdateId]=useState("")
+  console.log(updateId);
   const fetchUser=async ()=>{
 
       try{
@@ -22,6 +23,7 @@ function Users() {
         throw err
       }
   }
+
   const deleteUser=async (id)=>{
 
         try{
@@ -34,16 +36,9 @@ function Users() {
           console.log(err);
         }
   }
-  const updateUser=async (id)=>{
-    try{
-        const response=await axios.put(`http://localhost:8000/authentication/update/${id}`)
-        alert(response.data.message)
-    }
-    catch(err)
-    {
-        console.log(err);
-    }
-  }
+ 
+
+  
 
   useEffect(()=>{
       fetchUser()
@@ -62,7 +57,7 @@ function Users() {
                     <th>id</th>
                     <th>User Name</th>
                     <th>Email</th>
-                    <th>Pasword</th>
+                    
                     <th>Actions</th>
                   </tr>
                 </thead>
@@ -73,9 +68,9 @@ function Users() {
                     <td>{data._id}</td>
                     <td>{data.username}</td>
                     <td>{data.email}</td>
-                    <td>{data.password}</td>
+                    
                     <td><Button variant='contained' onClick={()=>deleteUser(data._id)} sx={{backgroundColor:"red"}}> <DeleteIcon/>Delete</Button>
-                   <Link to={'/edit'}> <Button variant='contained' onClick={()=>updateUser(data._id)} sx={{backgroundColor:"green"}}> <EditIcon/>Edit</Button></Link>
+                   <Link to={`/edit/${data._id}`}> <Button variant='contained' onMouseOver={()=>setUpdateId(data._id)} sx={{backgroundColor:"green"}}> <EditIcon/>Edit</Button></Link>
                     </td>
                   </tr>
                   

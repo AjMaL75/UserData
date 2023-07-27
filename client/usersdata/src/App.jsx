@@ -11,9 +11,10 @@ function App() {
       <div className='bg-info'>
         <h2 className='text-center'>User Data</h2>
       </div>
-      <Register/>
-      <Users/>
-      <Routes><Route path='/edit' element={<Update></Update>}/></Routes>
+      <Routes>
+      <Route path='/' element={<Register/>} />
+      
+      <Route path='/edit/:id' element={<Update></Update>}/></Routes>
     </div>
   );
 }

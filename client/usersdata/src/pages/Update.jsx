@@ -1,11 +1,16 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import { useFormik } from "formik";
 import  registerSchema  from "../schemas/index.js";
 import axios from "axios";
+import { useParams, useSearchParams } from "react-router-dom";
+
 
 
 function Update() {
+    const params=useParams()
+    console.log(params.id);
+    const [userData,setUserData]=useState("")
 
   const onSubmit = async (value, actions) => {
     await new Promise((resolve) => setTimeout(resolve, 1000));
@@ -32,12 +37,20 @@ function Update() {
     };
 
     const response = await axios.post(
-      `http://localhost:8000/authentication/update/${id}`,
+      `http://localhost:8000/authentication/update/${params.id}`,
       body
     );
     alert(response.data.message);
    
     };
+    const fetchData=async ()=>{
+    
+        const response1=await axios.get(`http://localhost:8000/authentication/user/${params.id}`)
+        setUserData(response1.data);
+    }
+    useEffect(()=>{
+            fetchData()
+    },[])
   return (
     <div className="">
       <Container className="w-25 mt-5">
@@ -55,7 +68,7 @@ function Update() {
                     id="username"
                     onChange={handleChange}
                     onBlur={handleBlur}
-                    value={values.username}
+                    value={userData.username}
                     className={
                       errors.username && touched.username
                         ? "input border border-danger form-control "
@@ -72,7 +85,7 @@ function Update() {
                     id="email"
                     onChange={handleChange}
                     onBlur={handleBlur}
-                    value={values.email}
+                    value={userData.email}
                     className={
                       errors.email && touched.email
                         ? "input border border-danger form-control "
@@ -89,7 +102,7 @@ function Update() {
                     id="password"
                     onChange={handleChange}
                     onBlur={handleBlur}
-                    value={values.password}
+                    value={userData.password}
                     className={
                       errors.password && touched.password
                         ? "input border border-danger form-control"
